@@ -9,7 +9,7 @@ import pickle
 from Portfolio import Portfolio
 from Fuzzy_logic import Fuzzy_logic
 #import plotly.plotly as py
-from matplotlib.finance import candlestick2_ohlc
+from mplfinance.original_flavor import candlestick2_ohlc
 import lstm
 #import plotly.graph_objs as go
 from keras.models import load_model
