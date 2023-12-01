@@ -234,4 +234,4 @@ pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/osx,visualstudiocode,python,jupyternotebooks
 
-main_code/dataset/**/*.parquet
+main_code/dataset/**/*.csv

@@ -980,9 +980,9 @@ def main():
 #     dataset_selected_stock = dataset[stock_index[0], :]
 #     return dataset_selected_stock
 def read_data_of_a_stock(dataset, name_of_stock):
-    dataset_selected_stock = pd.read_parquet(f"./dataset/{dataset}/{name_of_stock}.parquet")
+    dataset_selected_stock = pd.read_csv(f"./dataset/{dataset}/{name_of_stock}.csv")
     # Convert from pandas df to ndarray
-    return dataset_selected_stock.values
+    return dataset_selected_stock.to_numpy()
 
 def extract_features_from_dataset(dataset):
     dataset_only_features = dataset[:, 2:]
