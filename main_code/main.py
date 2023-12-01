@@ -63,8 +63,9 @@ def main():
     Initial_Budget = 1000  # 1000 $
 
     # ------ loading dataset:
-    data_df = pd.read_csv(path_dataset, delimiter=',')
-    data = data_df.values  # converting pandas data frame to numpy array
+    # We're going to load the data inside the loop since they're in separate files
+    # data_df = pd.read_csv(path_dataset, delimiter=',')
+    # data = data_df.values  # converting pandas data frame to numpy array
     actual_testSet_AllStocks_targetStockVariable_percentage = []
     predicted_testSet_AllStocks_targetStockVariable_percentage = []
     actual_AllDataset_AllStocks_targetStockVariable_percentage = []
@@ -82,10 +83,10 @@ def main():
         c = optimum_parameters_in_stocks[1]
         gamma = optimum_parameters_in_stocks[2]
 
-        data_a_stock = read_data_of_a_stock(dataset=data, name_of_stock=name_of_stock)
+        data_a_stock = read_data_of_a_stock(dataset="price", name_of_stock=name_of_stock)
 
         # ------ pre-processing of dataset:
-        data_a_stock = extract_features_from_dataset(dataset=data_a_stock)
+        # data_a_stock = extract_features_from_dataset(dataset=data_a_stock)
         total_number_of_days = data_a_stock.shape[0]
 
         closing = np.reshape(data_a_stock[:, 1], [-1, 1])
@@ -971,13 +972,17 @@ def main():
 
 
 # ------ Functions:
+# def read_data_of_a_stock(dataset, name_of_stock):
+#     # taking the column of dataset having the name of stocks:
+#     names_of_stocks = dataset[:, 1]
+#     # find the indices of a specific stock:
+#     stock_index = np.where(names_of_stocks == name_of_stock)
+#     dataset_selected_stock = dataset[stock_index[0], :]
+#     return dataset_selected_stock
 def read_data_of_a_stock(dataset, name_of_stock):
-    # taking the column of dataset having the name of stocks:
-    names_of_stocks = dataset[:, 1]
-    # find the indices of a specific stock:
-    stock_index = np.where(names_of_stocks == name_of_stock)
-    dataset_selected_stock = dataset[stock_index[0], :]
-    return dataset_selected_stock
+    dataset_selected_stock = pd.read_parquet(f"./dataset/{dataset}/{name_of_stock}.parquet")
+    # Convert from pandas df to ndarray
+    return dataset_selected_stock.values
 
 def extract_features_from_dataset(dataset):
     dataset_only_features = dataset[:, 2:]
